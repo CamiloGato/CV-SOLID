@@ -1,5 +1,7 @@
 (()=> {
 
+    // No estamos considerando ningún tipo de optimización
+    
     type Gender = "M"|"F"
 
     class Person {
