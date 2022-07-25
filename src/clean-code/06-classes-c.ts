@@ -34,10 +34,7 @@
         public role: string;
         public lastAcces: Date;
 
-        constructor({
-            email,
-            role
-        }: UserProps){
+        constructor({email, role}: UserProps){
             this.email = email;
             this.role = role;
             this.lastAcces = new Date()
@@ -58,17 +55,41 @@
         public workingDirectory;
         public lastOpenFolder;
 
-        constructor({
-            workingDirectory,
-            lastOpenFolder
-        }: SettingsProps ){
+        constructor({workingDirectory, lastOpenFolder}: SettingsProps ){
             this.workingDirectory = workingDirectory;
             this.lastOpenFolder = lastOpenFolder;
         }
 
     }
 
-    const userSettings = new Settings({
+    interface UserSettingsProps {
+        workingDirectory: string;
+        lastOpenFolder: string;
+        email: string;
+        role: string;
+        name: string;
+        gender: Gender;
+        birthdate: Date;
+    }
+
+    class UserSettings {
+        public person: Person;
+        public user: User;
+        public settings: Settings;
+
+        constructor({
+            name, gender, birthdate,
+            email, role,
+            workingDirectory, lastOpenFolder
+        }: UserSettingsProps){
+            this.person = new Person({name, gender, birthdate})
+            this.user = new User({email, role})
+            this.settings = new Settings({workingDirectory, lastOpenFolder})
+        }
+
+    }
+
+    const userSettings = new UserSettings({
         workingDirectory: '/usr/home',
         lastOpenFolder: '/home',
         email: 'fernando@google.com',
@@ -78,6 +99,6 @@
         birthdate: new Date('1985-10-21')
     })
 
-    console.log({ userSettings, areCredentialsValid: userSettings.checkCredentials() })
+    console.log({ userSettings })
 
 })()
